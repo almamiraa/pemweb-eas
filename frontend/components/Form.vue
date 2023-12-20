@@ -4,21 +4,20 @@
       <div class="relative px-4 py-10 bg-white mx-8 md:mx-auto shadow rounded-3xl sm:p-10 max-w-2xl">
         <div class="max-w-md mx-auto">
           <div class="flex items-center space-x-5">
-            <div class="h-14 w-14 bg-purple-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono"></div>
             <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
-              <h2 class="leading-relaxed">Form Registrasi</h2>
-              <p class="text-sm text-gray-500 font-normal leading-relaxed">Silahkan isi form di bawah ini</p>
+              <h2 class="leading-relaxed">FORM PENDAFTARAN</h2>
+              <p class="text-sm text-gray-500 text-center mx-aut font-normal leading-relaxed">Silahkan isi form di bawah ini</p>
             </div>
           </div>
           <!-- nama -->
           <div class="divide-y divide-gray-200">
             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
               <div class="flex flex-col">
-                <label class="leading-loose">Nama</label>
+                <label class="leading-loose text-base">Nama</label>
                 <input
                   type="text"
                   id="nama"
-                  v-model="formData.nama"
+                  v-model="inputData.nama"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="Nama Lengkap"
                 />
@@ -26,11 +25,11 @@
 
               <!-- email -->
               <div class="flex flex-col">
-                <label class="leading-loose">email</label>
+                <label class="leading-loose text-base">Email</label>
                 <input
                   type="email"
                   id="email"
-                  v-model="formData.email"
+                  v-model="inputData.email"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="username@gmail.com"
                 />
@@ -38,18 +37,19 @@
 
               <!-- sekolah -->
               <div class="flex flex-col">
-                <label class="leading-loose">Asal Sekolah</label>
+                <label class="leading-loose text-base">Asal Sekolah</label>
                 <input
                   type="text"
                   id="asal_sekolah"
-                  v-model="formData.sekolah"
+                  v-model="inputData.sekolah"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="Nama Sekolah"
                 />
               </div>
+              <!-- tanggal -->
               <div class="flex flex-col">
-                <label class="leading-loose">Tanggal Pendaftaran</label>
-                <input type="date" id="tanggal_pendaftaran" v-model="formData.tanggal" required class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" />
+                <label class="leading-loose text-base">Tanggal Pendaftaran</label>
+                <input type="date" id="tanggal_pendaftaran" v-model="inputData.tanggal" required class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" />
               </div>
             </div>
             <div class="pt-4 flex items-center space-x-4">
@@ -66,7 +66,7 @@
 export default {
   data() {
     return {
-      formData: {
+      inputData: {
         nama: "",
         email: "",
         sekolah: "",
@@ -84,15 +84,12 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(this.formData),
+          body: JSON.stringify(this.inputData),
         });
-
         const responseData = await response.json();
-
         console.log("sukses:", responseData);
 
-        // Reset form setelah pengiriman
-        this.formData = {
+        this.inputData = {
           nama: "",
           email: "",
           sekolah: "",

@@ -8,17 +8,28 @@
               <h2 class="leading-relaxed">Cek Status Pendaftaran</h2>
             </div>
           </div>
-          <form @submit.prevent="checkStatus">
-            <div class="mb-4">
-              <label for="email" class="block text-sm font-medium text-gray-600"></label>
-              <input type="email" id="email" v-model="email" required class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" />
-            </div>
-            <button type="submit" class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Check</button>
-          </form>
 
-          <div v-if="status !== null" class="mt-4">
-            <h3 class="text-lg font-semibold">Status Pendaftaran:</h3>
-            <p class="mt-2">{{ status }}</p>
+          <div class="divide-y divide-gray-200">
+            <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+              <form @submit.prevent="checkStatus">
+                <div class="mb-4">
+                  <label class="leading-loose"></label>
+                  <input
+                    type="email"
+                    id="email"
+                    v-model="email"
+                    class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
+                    placeholder="username@gmail.com"
+                  />
+                </div>
+                <button type="submit" class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Check</button>
+              </form>
+
+              <div v-if="status !== null" class="block pl-2 font-semibold text-xl self-start text-gray-700">
+                <h3 class="leading-relaxed">Status Pendaftaran:</h3>
+                <p class="mt-1 text-base">{{ status }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -55,16 +66,20 @@ export default {
             if (userDocument) {
               this.status = userDocument.status;
             } else {
-              console.error("Error.");
+              console.error("User not found.");
+              this.status = "User not found.";
             }
           } else {
-            console.error("Error.");
+            console.error("Error fetching data.");
+            this.status = "Error fetching data.";
           }
         } else {
           console.error("Failed to fetch status. Status code:", response.status);
+          this.status = "Error fetching status. Please try again.";
         }
       } catch (error) {
         console.error("Error:", error);
+        this.status = "An unexpected error occurred. Please try again.";
       }
     },
   },
