@@ -7,7 +7,7 @@ import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
 
 import Users from "./collections/Users";
-import Regis from "./collections/Regis";
+import Registrasi from "./collections/Registrasi";
 
 export default buildConfig({
   cors: "*",
@@ -16,7 +16,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: slateEditor({}),
-  collections: [Users, Regis],
+  collections: [Users, Registrasi],
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
   },

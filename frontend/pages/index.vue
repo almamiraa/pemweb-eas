@@ -1,5 +1,5 @@
 <template>
-  <Registration />
+  <StatusForm />
 </template>
 
-<script setup></script>
+<script></script>

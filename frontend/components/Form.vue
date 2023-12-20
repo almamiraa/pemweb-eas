@@ -16,8 +16,9 @@
               <div class="flex flex-col">
                 <label class="leading-loose">Nama</label>
                 <input
-                  v-model="formData.Nama"
                   type="text"
+                  id="nama"
+                  v-model="formData.nama"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="Nama Lengkap"
                 />
@@ -25,10 +26,11 @@
 
               <!-- email -->
               <div class="flex flex-col">
-                <label class="leading-loose">Email</label>
+                <label class="leading-loose">email</label>
                 <input
-                  v-model="formData.Email"
-                  type="text"
+                  type="email"
+                  id="email"
+                  v-model="formData.email"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="username@gmail.com"
                 />
@@ -38,11 +40,16 @@
               <div class="flex flex-col">
                 <label class="leading-loose">Asal Sekolah</label>
                 <input
-                  v-model="formData.Sekolah"
                   type="text"
+                  id="asal_sekolah"
+                  v-model="formData.sekolah"
                   class="px-4 py-3 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 text-lg"
                   placeholder="Nama Sekolah"
                 />
+              </div>
+              <div class="flex flex-col">
+                <label class="leading-loose">Tanggal Pendaftaran</label>
+                <input type="date" id="tanggal_pendaftaran" v-model="formData.tanggal" required class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" />
               </div>
             </div>
             <div class="pt-4 flex items-center space-x-4">
@@ -60,20 +67,19 @@ export default {
   data() {
     return {
       formData: {
-        Nama: "",
-        Email: "",
-        Sekolah: "",
+        nama: "",
+        email: "",
+        sekolah: "",
+        tanggal: "",
       },
-      backendData: {}, // To store data retrieved from the backend
     };
-  },
-  mounted() {
-    this.fetchDataFromBackend();
   },
   methods: {
     async submitForm() {
       try {
-        const response = await fetch("http://localhost:3001/api/regis", {
+        const apiUrl = "http://localhost:3001/api/registrasi";
+
+        const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,34 +87,19 @@ export default {
           body: JSON.stringify(this.formData),
         });
 
-        if (response.ok) {
-          console.log("Data successfully sent to backend!");
-          // Reset form or perform other actions as needed
-          this.formData = {
-            Nama: "",
-            Email: "",
-            Sekolah: "",
-          };
+        const responseData = await response.json();
 
-          // Optionally, fetch updated data from the backend
-          this.fetchDataFromBackend();
-        } else {
-          console.error("Failed to send data to backend.");
-        }
-      } catch (error) {
-        console.error("Error sending data to backend:", error);
-      }
-    },
-    async fetchDataFromBackend() {
-      try {
-        const response = await fetch("http://localhost:3001/api/regis");
-        const data = await response.json();
+        console.log("sukses:", responseData);
 
-        // Assuming there is only one document in the response
-        this.backendData = data.docs[0];
-        console.log("Data retrieved from backend:", this.backendData);
+        // Reset form setelah pengiriman
+        this.formData = {
+          nama: "",
+          email: "",
+          sekolah: "",
+          tanggal: "",
+        };
       } catch (error) {
-        console.error("Error fetching data from backend:", error);
+        console.error("error:", error);
       }
     },
   },

@@ -1,11 +1,11 @@
 import payload from "payload";
 
 /** @type {import('payload/types').CollectionConfig} */
-const Regis = {
-  slug: "Regis",
+const Registrasi = {
+  slug: "registrasi",
 
   admin: {
-    useAsTitle: "Nama",
+    useAsTitle: "nama",
   },
 
   access: {
@@ -17,35 +17,30 @@ const Regis = {
 
   fields: [
     {
-      name: "Nama",
-      label: "Nama",
+      name: "nama",
       type: "text",
       required: true,
     },
     {
-      name: "Email",
-      label: "Email",
+      name: "email",
       type: "text",
       required: true,
       unique: true,
     },
     {
-      name: "Sekolah",
-      label: "Sekolah",
+      name: "sekolah",
       type: "text",
       required: true,
     },
     {
-      name: "Status",
-      label: "Status",
+      name: "status",
       type: "select",
       options: ["Waiting", "Rejected", "Accepted"],
-      defaultValue: "Waiting", // Set the default value to "Waiting"
+      defaultValue: "Waiting",
       required: true,
     },
     {
-      name: "Tanggal",
-      label: "Tanggal",
+      name: "tanggal",
       type: "date",
       admin: {
         date: {
@@ -58,4 +53,4 @@ const Regis = {
   ],
 };
 
-export default Regis;
+export default Registrasi;
