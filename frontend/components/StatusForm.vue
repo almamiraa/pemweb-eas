@@ -26,8 +26,7 @@
               </form>
 
               <div v-if="status !== null" class="block pl-2 font-semibold text-xl self-start text-gray-700">
-                <h3 class="leading-relaxed">Status Pendaftaran:</h3>
-                <p class="mt-1 text-base">{{ status }}</p>
+               <p class="mt-1 text-base text-center mx-auto">{{ status }}</p>
               </div>
             </div>
           </div>
